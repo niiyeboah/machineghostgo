@@ -1,20 +1,54 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import Helmet from 'react-helmet'
+import React from "react";
+import PropTypes from "prop-types";
+import Helmet from "react-helmet";
 
-import Navbar from '../components/Navbar'
-import './all.sass'
+import Meta from "../components/Meta";
+import Menu from "../components/Menu";
+import Info from "./info";
+import "./all.scss";
 
-const TemplateWrapper = ({ children }) => (
-  <div>
-    <Helmet title="Home | Gatsby + Netlify CMS" />
-    <Navbar />
-    <div>{children()}</div>
-  </div>
-)
-
-TemplateWrapper.propTypes = {
-  children: PropTypes.func,
+class TemplateWrapper extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { open: false };
+  }
+  componentDidMount() {
+    Info();
+  }
+  render() {
+    const { children, data } = this.props;
+    const title = data.site.siteMetadata.title;
+    const description = data.site.siteMetadata.description;
+    const url = data.site.siteMetadata.homepage;
+    return (
+      <section className="section is-paddingless">
+        <Meta
+          title={`${title}`}
+          url={url}
+          image={`${url}/img/profile.jpg`}
+          description={description}
+        />
+        <Menu />
+        <main>{children()}</main>
+      </section>
+    );
+  }
 }
 
-export default TemplateWrapper
+TemplateWrapper.propTypes = {
+  children: PropTypes.func
+};
+
+export default TemplateWrapper;
+
+export const pageQuery = graphql`
+  query LayoutQuery {
+    site {
+      siteMetadata {
+        title
+        description
+        homepage
+      }
+    }
+  }
+`;

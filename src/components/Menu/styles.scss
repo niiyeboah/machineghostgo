@@ -1,0 +1,142 @@
+@mixin menu-animation($v, $x) {
+  visibility: $v;
+  @if $v == visible {
+    -webkit-transition: transform 0.4s;
+    transition: transform 0.4s;
+  } @else {
+    -webkit-transition: visibility 0s 0.4s, transform 0.4s;
+    transition: visibility 0s 0.4s, transform 0.4s;
+  }
+  transition-timing-function: ease-in-out;
+  -webkit-transform: translateX($x);
+  transform: translateX($x);
+}
+
+@mixin menu-item-animation($tx, $ry) {
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
+  transition-timing-function: ease-in-out;
+  -webkit-transform: translateX($tx) rotateY($ry);
+  transform: translateX($tx) rotateY($ry);
+}
+
+.menu {
+  .img {
+    background-image: url(/img/scared-geometry.jpg);
+    background-size: cover;
+    filter: brightness(42%) grayscale(100%) blur(2px);
+    box-shadow: inset -15px 0 25px -10px black;
+  }
+
+  .menu-button {
+    cursor: pointer;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: $gap / 2;
+    z-index: 10;
+  }
+
+  .overlay {
+    border-right: 2px solid black;
+    position: fixed;
+    width: 33.3333%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.9);
+    z-index: 1;
+    overflow-y: auto;
+    display: flex;
+    align-items: center;
+    @include menu-animation(hidden, -100%);
+
+    nav {
+      margin: auto;
+      min-width: 16rem;
+
+      img {
+        z-index: 1;
+        align-self: flex-end;
+        width: 42px;
+        height: 42px;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0 auto;
+        display: block;
+        height: 100%;
+        position: relative;
+        @include menu-item-animation(-33.3333%, 35deg);
+
+        li {
+          display: flex;
+        }
+
+        li > span {
+          color: #fff;
+        }
+
+        li > span:first-child {
+          margin: auto 10px;
+          color: #396;
+          flex-basis: 10%;
+        }
+
+        li a {
+          -webkit-transition: color 0.2s;
+          transition: color 0.2s;
+          text-shadow: none;
+          color: #fff;
+        }
+
+        li a:hover,
+        li a:focus {
+          color: #777;
+        }
+      }
+
+      ul:first-child {
+        padding-bottom: 15px;
+        margin-bottom: 25px;
+        border-bottom: 2px solid #222;
+      }
+    }
+  }
+
+  .overlay.menu-visible {
+    @include menu-animation(visible, 0);
+
+    nav ul {
+      @include menu-item-animation(0, 0);
+    }
+  }
+}
+
+@include touch {
+  .menu {
+    .img {
+      box-shadow: none;
+    }
+
+    .overlay {
+      border-left: none;
+      width: 100%;
+      @include menu-animation(hidden, 100%);
+
+      nav ul {
+        @include menu-item-animation(100%, -35deg);
+      }
+    }
+
+    .overlay.menu-visible {
+      @include menu-animation(visible, 0);
+
+      nav ul {
+        @include menu-item-animation(0, 0);
+      }
+    }
+  }
+}

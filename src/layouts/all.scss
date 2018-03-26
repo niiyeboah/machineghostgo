@@ -1,0 +1,126 @@
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/mixins";
+@import "../components/Menu/styles";
+
+/* VARIABLES */
+$mgg-grey: #555;
+$mgg-red: #990000;
+$mgg-red-invert: #fff;
+
+$primary: $mgg-red;
+$primary-invert: $mgg-red-invert;
+
+/* STYLES */
+.margin-top-0 {
+  margin-top: 0 !important;
+}
+
+.bio {
+  background-color: white;
+  position: fixed;
+  height: 100vh;
+  top: 0;
+  left: 0;
+}
+
+header {
+  figure {
+    margin: $gap;
+    float: right;
+
+    img {
+      box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+      border-radius: 1rem;
+      filter: grayscale(100%);
+    }
+  }
+
+  .title {
+    margin: 0 $gap;
+    color: black;
+    text-transform: uppercase;
+    text-align: right;
+    filter: blur(1px);
+
+    h1 {
+      font-weight: bold;
+    }
+
+    .grey {
+      color: $mgg-grey;
+      font-weight: normal;
+    }
+  }
+}
+
+.bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.gradient {
+  background-image: radial-gradient(farthest-corner at 0 0, transparent 5%, #fff 60%);
+}
+
+.img {
+  background-image: url(/img/ink-well.jpg);
+  filter: invert(100%);
+}
+
+.profile {
+  width: 40%;
+}
+
+.art {
+  img {
+    border-radius: 1em;
+    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  img:hover {
+    box-shadow: 0 0 50px -10px $mgg-red;
+  }
+}
+
+.column.art-gallery {
+  padding: 1em 2em;
+}
+
+@include mobile {
+  .bio {
+    position: relative;
+    height: auto;
+  }
+
+  .profile {
+    width: 25%;
+  }
+
+  .column.art-gallery {
+    padding: 3em;
+  }
+
+  header {
+    figure {
+      float: none;
+      margin: $gap auto;
+    }
+
+    .title {
+      text-align: center;
+
+      h1 {
+        display: inline-block;
+      }
+    }
+  }
+
+  .gradient {
+    background-image: radial-gradient(farthest-corner at 0 0, transparent 5%, #fff 70%);
+  }
+}
+
+@import "~bulma";
