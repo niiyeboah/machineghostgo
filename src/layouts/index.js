@@ -20,17 +20,14 @@ class TemplateWrapper extends React.Component {
     const title = data.site.siteMetadata.title;
     const description = data.site.siteMetadata.description;
     const url = data.site.siteMetadata.homepage;
+    const menuBackgroundPic = data.allMarkdownRemark.edges[0].node.frontmatter.menuBackgroundPic;
+    const socialLinks = data.allMarkdownRemark.edges[0].node.frontmatter.socialLinks;
     return (
-      <section className="section is-paddingless">
-        <Meta
-          title={`${title}`}
-          url={url}
-          image={`${url}/img/profile.jpg`}
-          description={description}
-        />
-        <Menu />
+      <div className="section is-paddingless">
+        <Meta title={title} url={url} image={`${url}/img/profile.jpg`} description={description} />
+        <Menu menuBackgroundPic={menuBackgroundPic} socialLinks={socialLinks} />
         <main>{children()}</main>
-      </section>
+      </div>
     );
   }
 }
@@ -48,6 +45,20 @@ export const pageQuery = graphql`
         title
         description
         homepage
+      }
+    }
+    allMarkdownRemark(filter: { frontmatter: { templateKey: { eq: "home-page" } } }) {
+      edges {
+        node {
+          frontmatter {
+            menuBackgroundPic
+            socialLinks {
+              name
+              icon
+              url
+            }
+          }
+        }
       }
     }
   }

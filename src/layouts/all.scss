@@ -1,6 +1,5 @@
 @import "~bulma/sass/utilities/initial-variables";
 @import "~bulma/sass/utilities/mixins";
-@import "../components/Menu/styles";
 
 /* VARIABLES */
 $mgg-grey: #555;
@@ -23,7 +22,8 @@ $primary-invert: $mgg-red-invert;
   left: 0;
 }
 
-header {
+header,
+nav {
   figure {
     margin: $gap;
     float: right;
@@ -51,6 +51,37 @@ header {
       font-weight: normal;
     }
   }
+
+  .social-links {
+    text-align: right;
+    margin: $gap;
+
+    .social-link {
+      background: black;
+      border-radius: 1em;
+      width: 25px;
+      height: 25px;
+      display: block;
+      margin: 0 0 ($gap / 2) 0;
+      color: white;
+      position: relative;
+      float: right;
+      clear: both;
+
+      svg,
+      i {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        height: 50%;
+        transform: translate(-50%, -50%);
+        display: block;
+      }
+    }
+    .social-link:hover {
+      background: $mgg-grey;
+    }
+  }
 }
 
 .bg {
@@ -63,6 +94,7 @@ header {
 
 .gradient {
   background-image: radial-gradient(farthest-corner at 0 0, transparent 5%, #fff 60%);
+  bottom: -1px;
 }
 
 .img {
@@ -78,6 +110,9 @@ header {
   img {
     border-radius: 1em;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    @include unselectable;
   }
 
   img:hover {
@@ -114,6 +149,18 @@ header {
 
       h1 {
         display: inline-block;
+      }
+    }
+
+    .social-links {
+      text-align: center;
+      margin: $gap;
+
+      .social-link {
+        display: inline-block;
+        margin: 0 $gap / 2;
+        float: none;
+        clear: none;
       }
     }
   }

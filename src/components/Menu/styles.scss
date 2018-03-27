@@ -1,3 +1,6 @@
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/mixins";
+
 @mixin menu-animation($v, $x) {
   visibility: $v;
   @if $v == visible {
@@ -13,8 +16,8 @@
 }
 
 @mixin menu-item-animation($tx, $ry) {
-  -webkit-transition: -webkit-transform 0.5s;
-  transition: transform 0.5s;
+  -webkit-transition: -webkit-transform 0.6s;
+  transition: transform 0.6s;
   transition-timing-function: ease-in-out;
   -webkit-transform: translateX($tx) rotateY($ry);
   transform: translateX($tx) rotateY($ry);
@@ -24,8 +27,8 @@
   .img {
     background-image: url(/img/scared-geometry.jpg);
     background-size: cover;
-    filter: brightness(42%) grayscale(100%) blur(2px);
     box-shadow: inset -15px 0 25px -10px black;
+    filter: brightness(42%) grayscale(100%) blur(2px);
   }
 
   .menu-button {
@@ -35,6 +38,9 @@
     left: 0;
     padding: $gap / 2;
     z-index: 10;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    -webkit-tap-highlight-color: transparent;
+    @include unselectable;
   }
 
   .overlay {
@@ -69,19 +75,28 @@
         display: block;
         height: 100%;
         position: relative;
-        @include menu-item-animation(-33.3333%, 35deg);
+        @include menu-item-animation(-33.3333%, -45deg);
 
         li {
           display: flex;
+
+          span:first-child.social-link {
+            background: #990000;
+
+            svg,
+            i {
+              color: white;
+            }
+          }
         }
 
         li > span {
-          color: #fff;
+          color: white;
         }
 
         li > span:first-child {
           margin: auto 10px;
-          color: #396;
+          color: #990000;
           flex-basis: 10%;
         }
 
@@ -89,7 +104,8 @@
           -webkit-transition: color 0.2s;
           transition: color 0.2s;
           text-shadow: none;
-          color: #fff;
+          color: white;
+          font-size: 2em;
         }
 
         li a:hover,
@@ -99,9 +115,9 @@
       }
 
       ul:first-child {
-        padding-bottom: 15px;
-        margin-bottom: 25px;
-        border-bottom: 2px solid #222;
+        padding-bottom: $gap;
+        margin-bottom: $gap;
+        border-bottom: 1px solid black;
       }
     }
   }

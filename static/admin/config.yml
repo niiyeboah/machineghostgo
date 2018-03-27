@@ -21,13 +21,15 @@ collections:
   - name: "pages"
     label: "Pages"
     files:
-      - file: "src/pages/index.md"
+      - file: "src/pages/home/index.md"
         label: "Home"
         name: "home"
         fields:
           - {label: "Template Key", name: "templateKey", widget: "hidden", default: "home-page"}
           - {label: "Profile Picture", name: "profilePic", widget: "image"}
-          - {label: "Social Links", name: "socialLinks", widget: list, fields: [{label: Icon, name: icon, widget: string}, {label: URL, name: url, widget: string}]}
+          - {label: "Background Picture", name: "backgroundPic", widget: "image"}
+          - {label: "Menu Background Picture", name: "menuBackgroundPic", widget: "image"}
+          - {label: "Social Links", name: "socialLinks", widget: list, fields: [{label: Name, name: name, widget: string}, {label: Icon, name: icon, widget: string}, {label: URL, name: url, widget: string}]}
       - file: "src/pages/about/index.md"
         label: "About"
         name: "about"

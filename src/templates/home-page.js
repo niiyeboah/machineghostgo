@@ -4,13 +4,12 @@ import Link from "gatsby-link";
 import Header from "../components/Header";
 
 export default ({ data }) => {
-  console.log(data);
   const { edges: artwork } = data.allMarkdownRemark;
-  const { profilePic, socialLinks } = data.markdownRemark.frontmatter;
+  const { profilePic, socialLinks, backgroundPic } = data.markdownRemark.frontmatter;
   return (
     <div className="columns">
       <div className="column is-one-third bio">
-        <Header profilePic={profilePic} socialLinks={socialLinks} />
+        <Header profilePic={profilePic} socialLinks={socialLinks} backgroundPic={backgroundPic} />
       </div>
       <div className="column is-offset-one-third">
         <section className="section">
@@ -21,7 +20,7 @@ export default ({ data }) => {
                 .map(({ node: art }, i) => (
                   <div className="art-gallery column is-6 is-4-fullhd" key={art.id}>
                     <p>
-                      <Link to={art.fields.slug}>
+                      <Link /*to={art.fields.slug}*/>
                         <figure className="art image is-square">
                           <img src={art.frontmatter.image} />
                         </figure>
@@ -30,7 +29,7 @@ export default ({ data }) => {
                     <p style={{ padding: "1em 0" }}>
                       <small>{art.frontmatter.date}</small>
                       <br />
-                      <Link className="has-text-primary" to={art.fields.slug}>
+                      <Link className="has-text-primary" /*to={art.fields.slug}*/>
                         {art.frontmatter.title}
                       </Link>
                     </p>
@@ -67,6 +66,8 @@ export const homePageQuery = graphql`
       frontmatter {
         title
         profilePic
+        backgroundPic
+        menuBackgroundPic
         socialLinks {
           icon
           url
