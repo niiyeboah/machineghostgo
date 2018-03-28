@@ -36,7 +36,6 @@ export default class Menu extends React.Component {
         url: "/about/"
       }
     ];
-    console.log(socialLinks);
     return (
       <div className="menu">
         <div className="menu-button" onClick={this.toggleMenu}>
@@ -53,29 +52,33 @@ export default class Menu extends React.Component {
           <div className="bg img" style={bg} />
           <nav>
             <ul>
-              {navLinks.map(({ name, icon, url }, i) => (
-                <li key={i}>
-                  <span>
-                    <Link to={url} className="link">
-                      {name}
-                    </Link>
-                  </span>
-                </li>
-              ))}
+              {!navLinks
+                ? null
+                : navLinks.map(({ name, icon, url }, i) => (
+                    <li key={i}>
+                      <span>
+                        <Link to={url} className="link">
+                          {name}
+                        </Link>
+                      </span>
+                    </li>
+                  ))}
             </ul>
             <ul className="social-links">
-              {socialLinks.map(({ name, icon, url }, i) => (
-                <li key={i}>
-                  <span className="social-link icon">
-                    <i className={icon} />
-                  </span>
-                  <span>
-                    <a href={url} className="link">
-                      {name}
-                    </a>
-                  </span>
-                </li>
-              ))}
+              {!socialLinks
+                ? null
+                : socialLinks.map(({ name, icon, url }, i) => (
+                    <li key={i}>
+                      <span className="social-link icon">
+                        <i className={icon} />
+                      </span>
+                      <span>
+                        <a href={url} className="link">
+                          {name}
+                        </a>
+                      </span>
+                    </li>
+                  ))}
             </ul>
           </nav>
         </div>

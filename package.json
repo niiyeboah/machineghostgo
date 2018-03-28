@@ -1,6 +1,6 @@
 {
   "name": "machineghostgo",
-  "homepage": "https://machineghostgo.gq",
+  "homepage": "https://xn--x7hy400o.gq/",
   "description": "Art",
   "version": "1.0.0",
   "author": "Nii Yeboah <contact@niiyeboah.com>",
@@ -22,11 +22,7 @@
     "react-hamburger-button": "0.0.1",
     "react-helmet": "^5.2.0"
   },
-  "keywords": [
-    "gatsby",
-    "art",
-    "gallery"
-  ],
+  "keywords": ["gatsby", "art", "gallery"],
   "license": "MIT",
   "scripts": {
     "start": "npm run develop",

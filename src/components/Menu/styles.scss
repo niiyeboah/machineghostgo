@@ -1,6 +1,8 @@
 @import "~bulma/sass/utilities/initial-variables";
 @import "~bulma/sass/utilities/mixins";
 
+$mgg-red: #990000;
+
 @mixin menu-animation($v, $x) {
   visibility: $v;
   @if $v == visible {
@@ -15,12 +17,12 @@
   transform: translateX($x);
 }
 
-@mixin menu-item-animation($tx, $ry) {
-  -webkit-transition: -webkit-transform 0.6s;
-  transition: transform 0.6s;
+@mixin menu-item-animation($tx) {
+  -webkit-transition: -webkit-transform 0.5s;
+  transition: transform 0.5s;
   transition-timing-function: ease-in-out;
-  -webkit-transform: translateX($tx) rotateY($ry);
-  transform: translateX($tx) rotateY($ry);
+  -webkit-transform: translateX($tx);
+  transform: translateX($tx);
 }
 
 .menu {
@@ -75,13 +77,16 @@
         display: block;
         height: 100%;
         position: relative;
-        @include menu-item-animation(-33.3333%, -45deg);
+        @include menu-item-animation(-33.3333%);
 
         li {
           display: flex;
 
+          span {
+            color: white;
+          }
           span:first-child.social-link {
-            background: #990000;
+            background: $mgg-red;
 
             svg,
             i {
@@ -90,13 +95,9 @@
           }
         }
 
-        li > span {
-          color: white;
-        }
-
         li > span:first-child {
           margin: auto 10px;
-          color: #990000;
+          color: $mgg-red;
           flex-basis: 10%;
         }
 
@@ -126,7 +127,7 @@
     @include menu-animation(visible, 0);
 
     nav ul {
-      @include menu-item-animation(0, 0);
+      @include menu-item-animation(0);
     }
   }
 }
@@ -143,7 +144,7 @@
       @include menu-animation(hidden, 100%);
 
       nav ul {
-        @include menu-item-animation(100%, -35deg);
+        @include menu-item-animation(100%);
       }
     }
 
@@ -151,7 +152,7 @@
       @include menu-animation(visible, 0);
 
       nav ul {
-        @include menu-item-animation(0, 0);
+        @include menu-item-animation(0);
       }
     }
   }

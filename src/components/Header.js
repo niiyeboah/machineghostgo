@@ -21,13 +21,15 @@ export default ({ profilePic, socialLinks, backgroundPic }) => {
         </div>
         <div className="container is-fluid">
           <div className="social-links">
-            {socialLinks.map(({ icon, url }) => (
-              <a className="social-link" href={url}>
-                <span class="icon">
-                  <i className={icon} />
-                </span>
-              </a>
-            ))}
+            {!socialLinks
+              ? null
+              : socialLinks.map(({ icon, url }) => (
+                  <a className="social-link" href={url}>
+                    <span class="icon">
+                      <i className={icon} />
+                    </span>
+                  </a>
+                ))}
           </div>
         </div>
       </header>
