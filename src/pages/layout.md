@@ -1,5 +1,6 @@
 ---
 layout: true
+templateKey: 'home-page'
 profilePic: /img/profile.jpg
 backgroundPic: /img/ink-well.jpg
 menuBackgroundPic: /img/scared-geometry.jpg
