@@ -5,7 +5,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
   const { createPage } = boundActionCreators;
   return graphql(`
     {
-      allMarkdownRemark(limit: 1000) {
+      allMarkdownRemark(limit: 1000, filter: { frontmatter: { layout: { ne: true } } }) {
         edges {
           node {
             id
@@ -27,7 +27,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
     result.data.allMarkdownRemark.edges.forEach(edge => {
       const id = edge.node.id;
       let slug = edge.node.fields.slug;
-      if (slug === "/home/") slug = "/";
+      //if (slug === "/layout/") slug = "/";
       createPage({
         path: slug,
         component: path.resolve(`src/templates/${String(edge.node.frontmatter.templateKey)}.js`),

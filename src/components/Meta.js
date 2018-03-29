@@ -7,6 +7,7 @@ export default ({ title, url, image, description }) => {
       <title>{title}</title>
       <link rel="canonical" href={url} />
       <meta name="description" content={description} />
+      <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image} />
       <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
@@ -17,6 +18,7 @@ export default ({ title, url, image, description }) => {
       <meta name="msapplication-TileColor" content="#555555" />
       <meta name="theme-color" content="#eeeeee" />
       <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" />
+      <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" />
     </Helmet>
   );
 };

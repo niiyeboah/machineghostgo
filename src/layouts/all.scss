@@ -2,18 +2,23 @@
 @import "~bulma/sass/utilities/mixins";
 
 /* VARIABLES */
-$mgg-grey: #555;
+$mgg-grey: #555555;
 $mgg-red: #990000;
-$mgg-red-invert: #fff;
+$mgg-red-invert: #ffffff;
 
 $primary: $mgg-red;
 $primary-invert: $mgg-red-invert;
 
-/* STYLES */
-.margin-top-0 {
-  margin-top: 0 !important;
+@mixin gradient($white-percent) {
+  background-image: radial-gradient(
+    farthest-corner at 0 0,
+    black 10%,
+    transparent 30%,
+    white $white-percent
+  );
 }
 
+/* STYLES */
 .bio {
   background-color: white;
   position: fixed;
@@ -67,6 +72,7 @@ nav {
       position: relative;
       float: right;
       clear: both;
+      box-shadow: 0 0 10px $mgg-grey;
 
       svg,
       i {
@@ -78,6 +84,7 @@ nav {
         display: block;
       }
     }
+
     .social-link:hover {
       background: $mgg-grey;
     }
@@ -93,7 +100,7 @@ nav {
 }
 
 .gradient {
-  background-image: radial-gradient(farthest-corner at 0 0, transparent 5%, #fff 60%);
+  @include gradient(60%);
   bottom: -1px;
 }
 
@@ -108,20 +115,23 @@ nav {
 
 .art {
   img {
-    border-radius: 1em;
+    border-radius: 0.25em;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-tap-highlight-color: transparent;
     @include unselectable;
   }
 
   img:hover {
-    box-shadow: 0 0 50px -10px $mgg-red;
+    box-shadow: 0 0 50px -10px black;
   }
 }
 
 .column.art-gallery {
   padding: 1em 2em;
+
+  .info {
+    padding: 1em 0;
+  }
 }
 
 @include mobile {
@@ -166,7 +176,7 @@ nav {
   }
 
   .gradient {
-    background-image: radial-gradient(farthest-corner at 0 0, transparent 5%, #fff 70%);
+    @include gradient(70%);
   }
 }
 

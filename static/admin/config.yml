@@ -21,15 +21,6 @@ collections:
   - name: "pages"
     label: "Pages"
     files:
-      - file: "src/pages/home/index.md"
-        label: "Home"
-        name: "home"
-        fields:
-          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "home-page"}
-          - {label: "Profile Picture", name: "profilePic", widget: "image"}
-          - {label: "Background Picture", name: "backgroundPic", widget: "image"}
-          - {label: "Menu Background Picture", name: "menuBackgroundPic", widget: "image"}
-          - {label: "Social Links", name: "socialLinks", widget: list, fields: [{label: Name, name: name, widget: string}, {label: Icon, name: icon, widget: string}, {label: URL, name: url, widget: string}]}
       - file: "src/pages/about/index.md"
         label: "About"
         name: "about"
@@ -37,3 +28,21 @@ collections:
           - {label: "Template Key", name: "templateKey", widget: "hidden", default: "about-page"}
           - {label: "Title", name: "title", widget: "string"}
           - {label: "Body", name: "body", widget: "markdown"}
+
+  - name: "layout"
+    label: "Layout"
+    files:
+      - file: "src/pages/layout.md"
+        label: "General"
+        name: "general"
+        fields:
+          - {label: "Profile Picture", name: "profilePic", widget: "image"}
+          - {label: "Background Picture", name: "backgroundPic", widget: "image"}
+          - {label: "Menu Background Picture", name: "menuBackgroundPic", widget: "image"}
+          - label: "Social Links"
+            name: "socialLinks"
+            widget: list
+            fields:
+              - {label: Name, name: name, widget: string}
+              - {label: Icon, name: icon, widget: string}
+              - {label: URL, name: url, widget: string}

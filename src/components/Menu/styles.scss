@@ -2,6 +2,7 @@
 @import "~bulma/sass/utilities/mixins";
 
 $mgg-red: #990000;
+$mgg-grey: black;
 
 @mixin menu-animation($v, $x) {
   visibility: $v;
@@ -18,8 +19,8 @@ $mgg-red: #990000;
 }
 
 @mixin menu-item-animation($tx) {
-  -webkit-transition: -webkit-transform 0.5s;
-  transition: transform 0.5s;
+  -webkit-transition: -webkit-transform 0.45s;
+  transition: transform 0.45s;
   transition-timing-function: ease-in-out;
   -webkit-transform: translateX($tx);
   transform: translateX($tx);
@@ -40,9 +41,9 @@ $mgg-red: #990000;
     left: 0;
     padding: $gap / 2;
     z-index: 10;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
     -webkit-tap-highlight-color: transparent;
     @include unselectable;
+    filter: blur(0.5px);
   }
 
   .overlay {
@@ -55,6 +56,7 @@ $mgg-red: #990000;
     background: rgba(0, 0, 0, 0.9);
     z-index: 1;
     overflow-y: auto;
+    overflow-x: hidden;
     display: flex;
     align-items: center;
     @include menu-animation(hidden, -100%);
@@ -84,9 +86,28 @@ $mgg-red: #990000;
 
           span {
             color: white;
+
+            a {
+              -webkit-transition: color 0.2s;
+              transition: color 0.2s;
+              text-shadow: none;
+              color: white;
+              font-size: 2em;
+            }
+
+            a:hover {
+              color: black;
+            }
           }
+
+          span:first-child.icon {
+            margin: 14px 10px auto 0;
+            flex-basis: 10%;
+            box-shadow: 0 0 10px $mgg-grey;
+          }
+
           span:first-child.social-link {
-            background: $mgg-red;
+            background: $mgg-grey;
 
             svg,
             i {
@@ -94,31 +115,17 @@ $mgg-red: #990000;
             }
           }
         }
-
-        li > span:first-child {
-          margin: auto 10px;
-          color: $mgg-red;
-          flex-basis: 10%;
-        }
-
-        li a {
-          -webkit-transition: color 0.2s;
-          transition: color 0.2s;
-          text-shadow: none;
-          color: white;
-          font-size: 2em;
-        }
-
-        li a:hover,
-        li a:focus {
-          color: #777;
-        }
       }
 
       ul:first-child {
-        padding-bottom: $gap;
-        margin-bottom: $gap;
-        border-bottom: 1px solid black;
+        font-size: 1.5em;
+        font-weight: bold;
+      }
+
+      hr {
+        height: 2px;
+        background: linear-gradient(to left, transparent, black, transparent);
+        position: relative;
       }
     }
   }

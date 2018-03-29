@@ -1,6 +1,5 @@
 ---
-templateKey: 'home-page'
-path: /
+layout: true
 profilePic: /img/profile.jpg
 backgroundPic: /img/ink-well.jpg
 menuBackgroundPic: /img/scared-geometry.jpg

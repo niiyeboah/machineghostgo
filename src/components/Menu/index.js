@@ -13,6 +13,7 @@ export default class Menu extends React.Component {
       menuVisible: null
     };
   }
+
   toggleMenu() {
     const { open } = this.state;
     this.setState({
@@ -20,6 +21,7 @@ export default class Menu extends React.Component {
       menuVisible: !open ? "menu-visible" : null
     });
   }
+
   render() {
     const { menuVisible, open } = this.state;
     const { menuBackgroundPic, socialLinks } = this.props;
@@ -64,6 +66,7 @@ export default class Menu extends React.Component {
                     </li>
                   ))}
             </ul>
+            <hr />
             <ul className="social-links">
               {!socialLinks
                 ? null

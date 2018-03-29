@@ -4,6 +4,7 @@ import Helmet from "react-helmet";
 
 import Meta from "../components/Meta";
 import Menu from "../components/Menu";
+import Header from "../components/Header";
 import Info from "./info";
 import "./all.scss";
 
@@ -12,21 +13,44 @@ class TemplateWrapper extends React.Component {
     super(props);
     this.state = { open: false };
   }
+
   componentDidMount() {
     Info();
   }
+
   render() {
     const { children, data } = this.props;
     const title = data.site.siteMetadata.title;
-    const description = data.site.siteMetadata.description;
     const url = data.site.siteMetadata.homepage;
-    const menuBackgroundPic = data.allMarkdownRemark.edges[0].node.frontmatter.menuBackgroundPic;
-    const socialLinks = data.allMarkdownRemark.edges[0].node.frontmatter.socialLinks;
+    const description = data.site.siteMetadata.description;
+    const {
+      socialLinks,
+      menuBackgroundPic,
+      profilePic,
+      backgroundPic
+    } = data.allMarkdownRemark.edges[0].node.frontmatter;
     return (
       <div className="section is-paddingless">
         <Meta title={title} url={url} image={`${url}/img/profile.jpg`} description={description} />
         <Menu menuBackgroundPic={menuBackgroundPic} socialLinks={socialLinks} />
-        <main>{children()}</main>
+        <div className="columns">
+          <div className="column is-one-third bio">
+            <Header
+              profilePic={profilePic}
+              socialLinks={socialLinks}
+              backgroundPic={backgroundPic}
+              artPost={this.state.artPost}
+            />
+          </div>
+          <div className="column is-offset-one-third">
+            <main>
+              {children({
+                ...this.props,
+                layout: false
+              })}
+            </main>
+          </div>
+        </div>
       </div>
     );
   }
@@ -47,10 +71,12 @@ export const pageQuery = graphql`
         homepage
       }
     }
-    allMarkdownRemark(filter: { frontmatter: { templateKey: { eq: "home-page" } } }) {
+    allMarkdownRemark(filter: { frontmatter: { layout: { eq: true } } }) {
       edges {
         node {
           frontmatter {
+            profilePic
+            backgroundPic
             menuBackgroundPic
             socialLinks {
               name
