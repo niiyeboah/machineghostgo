@@ -23,9 +23,9 @@ export default ({ profilePic, socialLinks, backgroundPic }) => {
           <div className="social-links">
             {!socialLinks
               ? null
-              : socialLinks.map(({ icon, url }) => (
-                  <a className="social-link" href={url}>
-                    <span class="icon">
+              : socialLinks.map(({ icon, url }, i) => (
+                  <a className="social-link" href={url} key={i}>
+                    <span className="icon">
                       <i className={icon} />
                     </span>
                   </a>

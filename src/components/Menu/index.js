@@ -5,26 +5,12 @@ import { HamburgerButton } from "react-hamburger-button";
 import "./styles.scss";
 
 export default class Menu extends React.Component {
-  constructor(props) {
-    super(props);
-    this.toggleMenu = this.toggleMenu.bind(this);
-    this.state = {
-      open: false,
-      menuVisible: null
-    };
-  }
-
-  toggleMenu() {
-    const { open } = this.state;
-    this.setState({
-      open: !open,
-      menuVisible: !open ? "menu-visible" : null
-    });
+  getClass(open) {
+    return open ? "menu-visible" : null;
   }
 
   render() {
-    const { menuVisible, open } = this.state;
-    const { menuBackgroundPic, socialLinks } = this.props;
+    const { menuBackgroundPic, socialLinks, menuVisible, toggleMenu } = this.props;
     const bg = menuBackgroundPic ? { backgroundImage: menuBackgroundPic } : null;
     const navLinks = [
       {
@@ -40,9 +26,9 @@ export default class Menu extends React.Component {
     ];
     return (
       <div className="menu">
-        <div className="menu-button" onClick={this.toggleMenu}>
+        <div className="menu-button" onClick={toggleMenu}>
           <HamburgerButton
-            open={open}
+            open={menuVisible}
             width={25}
             height={18}
             strokeWidth={3}
@@ -50,7 +36,7 @@ export default class Menu extends React.Component {
             animationDuration={0.5}
           />
         </div>
-        <div className={`overlay ${menuVisible}`}>
+        <div className={`overlay ${this.getClass(menuVisible)}`}>
           <div className="bg img" style={bg} />
           <nav>
             <ul>
@@ -59,7 +45,7 @@ export default class Menu extends React.Component {
                 : navLinks.map(({ name, icon, url }, i) => (
                     <li key={i}>
                       <span>
-                        <Link to={url} className="link">
+                        <Link to={url} className="link" onClick={toggleMenu}>
                           {name}
                         </Link>
                       </span>

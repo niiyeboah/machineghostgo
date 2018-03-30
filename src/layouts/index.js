@@ -1,17 +1,71 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Helmet from "react-helmet";
+import PropTypes from "prop-types";
 
+import Header from "../components/Header";
 import Meta from "../components/Meta";
 import Menu from "../components/Menu";
-import Header from "../components/Header";
 import Info from "./info";
 import "./all.scss";
+
+export const LayoutTemplate = ({
+  url,
+  title,
+  children,
+  toggleMenu,
+  profilePic,
+  description,
+  socialLinks,
+  menuVisible,
+  backgroundPic,
+  menuBackgroundPic
+}) => (
+  <div className="section is-paddingless">
+    <Meta title={title} url={url} image={`${url}/img/profile.jpg`} description={description} />
+    <Menu
+      toggleMenu={toggleMenu}
+      socialLinks={socialLinks}
+      menuVisible={menuVisible}
+      menuBackgroundPic={menuBackgroundPic}
+    />
+    <div className="columns">
+      <div className="column is-one-third bio">
+        <Header profilePic={profilePic} socialLinks={socialLinks} backgroundPic={backgroundPic} />
+      </div>
+      <div className="column is-offset-one-third">
+        <main>{children}</main>
+      </div>
+    </div>
+  </div>
+);
+
+LayoutTemplate.propTypes = {
+  url: PropTypes.string,
+  title: PropTypes.string,
+  toggleMenu: PropTypes.func,
+  children: PropTypes.object,
+  menuVisible: PropTypes.bool,
+  socialLinks: PropTypes.array,
+  profilePic: PropTypes.string,
+  description: PropTypes.string,
+  backgroundPic: PropTypes.string,
+  menuBackgroundPic: PropTypes.string
+};
 
 class TemplateWrapper extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { open: false };
+    this.state = { menuVisible: false };
+    this.closeMenu = this.closeMenu.bind(this);
+    this.toggleMenu = this.toggleMenu.bind(this);
+  }
+
+  toggleMenu() {
+    this.setState({ menuVisible: !this.state.menuVisible });
+  }
+
+  closeMenu() {
+    if (this.state.menuVisible) this.toggleMenu();
   }
 
   componentDidMount() {
@@ -30,34 +84,30 @@ class TemplateWrapper extends React.Component {
       backgroundPic
     } = data.allMarkdownRemark.edges[0].node.frontmatter;
     return (
-      <div className="section is-paddingless">
-        <Meta title={title} url={url} image={`${url}/img/profile.jpg`} description={description} />
-        <Menu menuBackgroundPic={menuBackgroundPic} socialLinks={socialLinks} />
-        <div className="columns">
-          <div className="column is-one-third bio">
-            <Header
-              profilePic={profilePic}
-              socialLinks={socialLinks}
-              backgroundPic={backgroundPic}
-              artPost={this.state.artPost}
-            />
-          </div>
-          <div className="column is-offset-one-third">
-            <main>
-              {children({
-                ...this.props,
-                layout: false
-              })}
-            </main>
-          </div>
-        </div>
-      </div>
+      <LayoutTemplate
+        url={url}
+        title={title}
+        profilePic={profilePic}
+        description={description}
+        socialLinks={socialLinks}
+        toggleMenu={this.toggleMenu}
+        backgroundPic={backgroundPic}
+        menuVisible={this.state.menuVisible}
+        menuBackgroundPic={menuBackgroundPic}
+      >
+        {children({
+          ...this.props,
+          layout: false,
+          closeMenu: this.closeMenu
+        })}
+      </LayoutTemplate>
     );
   }
 }
 
 TemplateWrapper.propTypes = {
-  children: PropTypes.func
+  children: PropTypes.func,
+  data: PropTypes.object
 };
 
 export default TemplateWrapper;
