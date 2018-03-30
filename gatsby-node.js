@@ -1,6 +1,41 @@
 const path = require("path");
 const { createFilePath } = require("gatsby-source-filesystem");
 
+const logErrors = errors => {
+  if (errors) {
+    errors.forEach(e => console.error(e.toString()));
+    return Promise.reject(errors);
+  }
+};
+
+exports.createLayouts = ({ boundActionCreators, graphql }) => {
+  const { createLayout } = boundActionCreators;
+  return graphql(`
+    {
+      layout: markdownRemark(frontmatter: { layout: { eq: true } }) {
+        frontmatter {
+          profilePic
+          backgroundPic
+          menuBackgroundPic
+        }
+      }
+    }
+  `).then(result => {
+    const { profilePic, backgroundPic, menuBackgroundPic } = result.data.layout.frontmatter;
+    const errors = logErrors(result.errors);
+    if (errors) return errors;
+    createLayout({
+      component: path.resolve(`src/templates/custom-layout.js`),
+      id: "custom",
+      context: {
+        profilePic,
+        backgroundPic,
+        menuBackgroundPic
+      }
+    });
+  });
+};
+
 exports.createPages = ({ boundActionCreators, graphql }) => {
   const { createPage } = boundActionCreators;
   return graphql(`
@@ -20,20 +55,15 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
       }
     }
   `).then(result => {
-    if (result.errors) {
-      result.errors.forEach(e => console.error(e.toString()));
-      return Promise.reject(result.errors);
-    }
+    const errors = logErrors(result.errors);
+    if (errors) return errors;
     result.data.allMarkdownRemark.edges.forEach(edge => {
-      const id = edge.node.id;
-      let slug = edge.node.fields.slug;
-      //if (slug === "/layout/") slug = "/";
+      const { id, fields: { slug }, frontmatter: { templateKey } } = edge.node;
       createPage({
         path: slug,
-        component: path.resolve(`src/templates/${String(edge.node.frontmatter.templateKey)}.js`),
-        context: {
-          id
-        }
+        component: path.resolve(`src/templates/${String(templateKey)}.js`),
+        context: { id },
+        layout: "custom"
       });
     });
   });

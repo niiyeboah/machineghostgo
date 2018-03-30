@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "gatsby-link";
+// import Img from "gatsby-image";
 import PropTypes from "prop-types";
 
 export const HomePageTemplate = ({ artwork, closeMenu }) => {
@@ -9,26 +10,29 @@ export const HomePageTemplate = ({ artwork, closeMenu }) => {
         <div className="columns is-multiline">
           {!artwork
             ? null
-            : artwork.map(({ node: art }) => (
-                <article
-                  className="art-gallery column is-6 is-4-fullhd"
-                  key={art.id}
-                  onClick={closeMenu}
-                >
-                  <Link to={art.fields.slug}>
-                    <figure className="art image is-square">
-                      <img src={art.frontmatter.image} />
-                    </figure>
-                  </Link>
-                  <div className="info">
-                    <small>{art.frontmatter.date}</small>
-                    <br />
-                    <Link className="has-text-primary" to={art.fields.slug}>
-                      {art.frontmatter.title}
+            : artwork.map(({ node: art }) => {
+                const { id, fields: { slug }, frontmatter: { image, date, title } } = art;
+                return (
+                  <article
+                    className="art-gallery column is-6 is-4-fullhd"
+                    key={id}
+                    onClick={closeMenu}
+                  >
+                    <Link to={slug}>
+                      <figure className="art image is-square">
+                        <img src={image} />
+                      </figure>
                     </Link>
-                  </div>
-                </article>
-              ))}
+                    <div className="info">
+                      <small>{date}</small>
+                      <br />
+                      <Link className="has-text-primary" to={slug}>
+                        {title}
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })}
         </div>
       </div>
     </section>

@@ -5,8 +5,8 @@ import PropTypes from "prop-types";
 import Header from "../components/Header";
 import Meta from "../components/Meta";
 import Menu from "../components/Menu";
-import Info from "./info";
-import "./all.scss";
+import Info from "../utils/info";
+import "../layouts/all.scss";
 
 export const LayoutTemplate = ({
   url,
@@ -74,19 +74,12 @@ class TemplateWrapper extends React.Component {
 
   render() {
     const { children, data } = this.props;
-    const title = data.site.siteMetadata.title;
-    const url = data.site.siteMetadata.homepage;
-    const description = data.site.siteMetadata.description;
-    const {
-      socialLinks,
-      menuBackgroundPic,
-      profilePic,
-      backgroundPic
-    } = data.allMarkdownRemark.edges[0].node.frontmatter;
+    const { title, homepage, description } = data.site.siteMetadata;
+    const { socialLinks, menuBackgroundPic, profilePic, backgroundPic } = data.layout.frontmatter;
     return (
       <LayoutTemplate
-        url={url}
         title={title}
+        url={homepage}
         profilePic={profilePic}
         description={description}
         socialLinks={socialLinks}
@@ -113,7 +106,7 @@ TemplateWrapper.propTypes = {
 export default TemplateWrapper;
 
 export const pageQuery = graphql`
-  query LayoutQuery {
+  query CustomLayoutQuery {
     site {
       siteMetadata {
         title
@@ -121,19 +114,15 @@ export const pageQuery = graphql`
         homepage
       }
     }
-    allMarkdownRemark(filter: { frontmatter: { layout: { eq: true } } }) {
-      edges {
-        node {
-          frontmatter {
-            profilePic
-            backgroundPic
-            menuBackgroundPic
-            socialLinks {
-              name
-              icon
-              url
-            }
-          }
+    layout: markdownRemark(frontmatter: { layout: { eq: true } }) {
+      frontmatter {
+        profilePic
+        backgroundPic
+        menuBackgroundPic
+        socialLinks {
+          name
+          icon
+          url
         }
       }
     }

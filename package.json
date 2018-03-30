@@ -7,6 +7,7 @@
   "dependencies": {
     "bulma": "^0.6.2",
     "gatsby": "^1.9.213",
+    "gatsby-image": "^1.0.42",
     "gatsby-link": "^1.6.37",
     "gatsby-module-loader": "^1.0.11",
     "gatsby-plugin-netlify-cms": "^1.0.9",
@@ -22,7 +23,13 @@
     "react-hamburger-button": "0.0.1",
     "react-helmet": "^5.2.0"
   },
-  "keywords": ["netlifycms", "gatsby", "react", "bulma", "sass"],
+  "keywords": [
+    "netlifycms",
+    "gatsby",
+    "react",
+    "bulma",
+    "sass"
+  ],
   "license": "MIT",
   "scripts": {
     "start": "npm run develop",
