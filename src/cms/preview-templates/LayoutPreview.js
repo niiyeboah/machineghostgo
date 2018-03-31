@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { LayoutTemplate } from "../../layouts/index";
+import { LayoutTemplate } from "../../templates/custom-layout";
 
 class LayoutPreview extends React.Component {
   constructor(props) {

@@ -2,7 +2,7 @@ import React from "react";
 import Link from "gatsby-link";
 import { HamburgerButton } from "react-hamburger-button";
 
-import "./styles.scss";
+import "./menu.scss";
 
 export default class Menu extends React.Component {
   getClass(open) {
@@ -30,7 +30,7 @@ export default class Menu extends React.Component {
           <HamburgerButton
             open={menuVisible}
             width={25}
-            height={18}
+            height={20}
             strokeWidth={3}
             color="#555"
             animationDuration={0.5}

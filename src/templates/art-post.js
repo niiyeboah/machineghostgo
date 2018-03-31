@@ -1,42 +1,44 @@
 import React from "react";
 import Helmet from "react-helmet";
-import Content, { HTMLContent } from "../components/Content";
 
-export const ArtPostTemplate = ({
-  content,
-  contentComponent,
-  description,
-  title,
-  image,
-  helmet
-}) => {
-  const PostContent = contentComponent || Content;
+export const ArtPostTemplate = ({ date, title, description, image, dimensions, helmet }) => {
+  const { width, height, unit } = dimensions;
   return (
     <article>
-      {helmet || ""}
-      <div className="container is-fluid content">
-        <div className="columns">
-          <div className="column is-10 is-offset-1">
-            <h1 className="title is-size-2 has-text-weight-bold is-bold-light">{title}</h1>
-            <p>{description}</p>
-            <PostContent content={content} />
+      {helmet || null}
+      <section className="section">
+        <div className="art-post container is-fluid content">
+          <div className="info">
+            <div className="title">{title}</div>
+            <small>{date}</small>
+            <br />
+            <small>{`${width} × ${height} ${unit}`}</small>
           </div>
+          <figure className="image is-square">
+            <img src={image} />
+          </figure>
+          <div className="info description">{description}</div>
         </div>
-      </div>
+      </section>
     </article>
   );
 };
 
-export default props => {
-  const { markdownRemark: post } = props.data;
-  const siteTitle = props.data.site.siteMetadata.title;
+export default ({ data, transition, location }) => {
+  const { title: siteTitle, hompage: siteUrl } = data.site.siteMetadata;
+  const { markdownRemark: { frontmatter: { date, title, description, image, dimensions } } } = data;
   return (
     <ArtPostTemplate
-      content={post.html}
-      contentComponent={HTMLContent}
-      description={post.frontmatter.description}
-      helmet={<Helmet title={`${siteTitle} | ${post.frontmatter.title}`} />}
-      title={post.frontmatter.title}
+      {...{ date, title, description, image, dimensions }}
+      helmet={
+        <Helmet>
+          <title>{`${siteTitle} | ${title}`}</title>
+          <link rel="canonical" href={siteUrl + location.pathname} />
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={description} />
+          <meta property="og:image" content={image} />
+        </Helmet>
+      }
     />
   );
 };
@@ -46,16 +48,20 @@ export const pageQuery = graphql`
     site {
       siteMetadata {
         title
+        homepage
       }
     }
     markdownRemark(id: { eq: $id }) {
-      id
-      html
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title
         description
         image
+        dimensions {
+          width
+          height
+          unit
+        }
       }
     }
   }

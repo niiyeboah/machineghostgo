@@ -1,0 +1,38 @@
+@import "~bulma/sass/utilities/initial-variables";
+@import "~bulma/sass/utilities/mixins";
+
+footer {
+  position: fixed;
+  bottom: 0;
+  padding: 5px ($gap * 2 + 10px) 5px 0;
+  text-align: right;
+  width: 33.3333%;
+  color: black;
+
+  .artist {
+    font-weight: bold;
+    font-size: 0.9em;
+  }
+
+  .developer {
+    a {
+      color: #396;
+    }
+
+    a:hover {
+      color: #042;
+    }
+  }
+}
+
+@include touch {
+  footer {
+    background: black;
+    position: relative;
+    bottom: none;
+    padding: ($gap / 2) ($gap * 2);
+    width: auto;
+    margin-top: -15px;
+    color: white;
+  }
+}

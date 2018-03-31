@@ -24,11 +24,11 @@ export const HomePageTemplate = ({ artwork, closeMenu }) => {
                       </figure>
                     </Link>
                     <div className="info">
-                      <small>{date}</small>
-                      <br />
                       <Link className="has-text-primary" to={slug}>
                         {title}
                       </Link>
+                      <br />
+                      <small>{date}</small>
                     </div>
                   </article>
                 );
@@ -43,7 +43,8 @@ HomePageTemplate.propTypes = {
   artwork: PropTypes.array
 };
 
-const HomePage = ({ data, closeMenu }) => {
+const HomePage = ({ data, closeMenu, transition }) => {
+  console.log(transition);
   return <HomePageTemplate artwork={data.artwork.edges} closeMenu={closeMenu} />;
 };
 

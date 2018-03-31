@@ -40,7 +40,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
   const { createPage } = boundActionCreators;
   return graphql(`
     {
-      allMarkdownRemark(limit: 1000, filter: { frontmatter: { layout: { ne: true } } }) {
+      pages: allMarkdownRemark(filter: { frontmatter: { layout: { ne: true } } }) {
         edges {
           node {
             id
@@ -57,7 +57,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
   `).then(result => {
     const errors = logErrors(result.errors);
     if (errors) return errors;
-    result.data.allMarkdownRemark.edges.forEach(edge => {
+    result.data.pages.edges.forEach(edge => {
       const { id, fields: { slug }, frontmatter: { templateKey } } = edge.node;
       createPage({
         path: slug,
@@ -73,10 +73,15 @@ exports.onCreateNode = ({ node, boundActionCreators, getNode }) => {
   const { createNodeField } = boundActionCreators;
   if (node.internal.type === `MarkdownRemark`) {
     const value = createFilePath({ node, getNode });
-    createNodeField({
-      name: `slug`,
-      node,
-      value
-    });
+    createNodeField({ name: `slug`, node, value });
   }
+};
+
+exports.onCreatePage = async ({ page, boundActionCreators }) => {
+  const { createPage } = boundActionCreators;
+  return new Promise((resolve, reject) => {
+    page.layout = "custom";
+    createPage(page);
+    resolve();
+  });
 };

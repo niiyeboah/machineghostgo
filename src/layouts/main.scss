@@ -9,12 +9,12 @@ $mgg-red-invert: #ffffff;
 $primary: $mgg-red;
 $primary-invert: $mgg-red-invert;
 
-@mixin gradient($white-percent) {
+@mixin gradient($color, $percent) {
   background-image: radial-gradient(
     farthest-corner at 0 0,
     black 10%,
     transparent 30%,
-    white $white-percent
+    $color $percent
   );
 }
 
@@ -47,13 +47,20 @@ nav {
     text-align: right;
     filter: blur(1px);
 
-    h1 {
-      font-weight: bold;
-    }
+    a {
+      transition: color 0.2s ease-in;
+      color: black;
+      h1 {
+        font-weight: bold;
+      }
 
-    .grey {
+      .grey {
+        color: $mgg-grey;
+        font-weight: normal;
+      }
+    }
+    a:hover {
       color: $mgg-grey;
-      font-weight: normal;
     }
   }
 
@@ -73,6 +80,7 @@ nav {
       float: right;
       clear: both;
       box-shadow: 0 0 10px $mgg-grey;
+      transition: background-color 0.2s ease-in;
 
       svg,
       i {
@@ -100,7 +108,7 @@ nav {
 }
 
 .gradient {
-  @include gradient(60%);
+  @include gradient(white, 60%);
   bottom: -1px;
 }
 
@@ -118,6 +126,7 @@ nav {
     border-radius: 0.25em;
     box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
     -webkit-tap-highlight-color: transparent;
+    transition: box-shadow 0.3s ease-in;
     @include unselectable;
   }
 
@@ -132,6 +141,64 @@ nav {
   .info {
     padding: 1em 0;
   }
+}
+
+.page-not-found {
+  display: flex;
+  height: 98vh;
+
+  h1 {
+    font-size: 2em;
+    font-weight: bold;
+    margin: auto;
+    padding-bottom: 2vh;
+    color: black;
+    filter: blur(2px);
+    text-transform: uppercase;
+  }
+}
+
+.art-post {
+  .info {
+    padding: 0 $gap;
+    //text-align: right;
+
+    .title {
+      font-size: 1em;
+      color: $mgg-red;
+      margin-bottom: 0;
+    }
+  }
+
+  .description {
+    color: black;
+    filter: drop-shadow(1px 1px 5px white);
+  }
+
+  figure {
+    img {
+      border-radius: 0.25em;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+  }
+}
+
+.column.template {
+  padding-bottom: 0;
+
+  main {
+    position: relative;
+    min-height: 100vh;
+
+    .gradient {
+      background-image: radial-gradient(farthest-corner at 0 0, transparent 70%, black 120%);
+      bottom: 0;
+    }
+  }
+}
+
+.columns:not(:last-child).last {
+  margin-bottom: 0;
 }
 
 @include mobile {
@@ -176,7 +243,7 @@ nav {
   }
 
   .gradient {
-    @include gradient(70%);
+    @include gradient(white, 70%);
   }
 }
 

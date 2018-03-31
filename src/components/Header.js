@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "gatsby-link";
 
 export default ({ profilePic, socialLinks, backgroundPic }) => {
   const bg = backgroundPic ? { backgroundImage: `url(${backgroundPic})` } : null;
@@ -13,10 +14,12 @@ export default ({ profilePic, socialLinks, backgroundPic }) => {
           </figure>
         </div>
         <div className="container is-fluid">
-          <div className="title">
-            <h1>Machine</h1>
-            <h1 className="grey">Ghost</h1>
-            <h1>Go</h1>
+          <div className="title link">
+            <Link to="/">
+              <h1>Machine</h1>
+              <h1 className="grey">Ghost</h1>
+              <h1>Go</h1>
+            </Link>
           </div>
         </div>
         <div className="container is-fluid">

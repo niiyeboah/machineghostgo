@@ -3,10 +3,11 @@ import Helmet from "react-helmet";
 import PropTypes from "prop-types";
 
 import Header from "../components/Header";
+import Footer from "../components/Footer";
 import Meta from "../components/Meta";
 import Menu from "../components/Menu";
 import Info from "../utils/info";
-import "../layouts/all.scss";
+import "../layouts/main.scss";
 
 export const LayoutTemplate = ({
   url,
@@ -21,21 +22,20 @@ export const LayoutTemplate = ({
   menuBackgroundPic
 }) => (
   <div className="section is-paddingless">
-    <Meta title={title} url={url} image={`${url}/img/profile.jpg`} description={description} />
-    <Menu
-      toggleMenu={toggleMenu}
-      socialLinks={socialLinks}
-      menuVisible={menuVisible}
-      menuBackgroundPic={menuBackgroundPic}
-    />
-    <div className="columns">
+    <Meta image={`${url}/img/profile.jpg`} {...{ description, title, url }} />
+    <Menu {...{ toggleMenu, socialLinks, menuVisible, menuBackgroundPic }} />
+    <div className="columns last">
       <div className="column is-one-third bio">
-        <Header profilePic={profilePic} socialLinks={socialLinks} backgroundPic={backgroundPic} />
+        <Header {...{ profilePic, socialLinks, backgroundPic }} />
       </div>
-      <div className="column is-offset-one-third">
-        <main>{children}</main>
+      <div className="column template is-offset-one-third">
+        <main>
+          <div className="bg gradient" />
+          {children}
+        </main>
       </div>
     </div>
+    <Footer />
   </div>
 );
 
@@ -74,19 +74,22 @@ class TemplateWrapper extends React.Component {
 
   render() {
     const { children, data } = this.props;
-    const { title, homepage, description } = data.site.siteMetadata;
+    const { toggleMenu, state: { menuVisible } } = this;
+    const { title, homepage: url, description } = data.site.siteMetadata;
     const { socialLinks, menuBackgroundPic, profilePic, backgroundPic } = data.layout.frontmatter;
     return (
       <LayoutTemplate
-        title={title}
-        url={homepage}
-        profilePic={profilePic}
-        description={description}
-        socialLinks={socialLinks}
-        toggleMenu={this.toggleMenu}
-        backgroundPic={backgroundPic}
-        menuVisible={this.state.menuVisible}
-        menuBackgroundPic={menuBackgroundPic}
+        {...{
+          url,
+          title,
+          profilePic,
+          toggleMenu,
+          description,
+          socialLinks,
+          menuVisible,
+          backgroundPic,
+          menuBackgroundPic
+        }}
       >
         {children({
           ...this.props,
