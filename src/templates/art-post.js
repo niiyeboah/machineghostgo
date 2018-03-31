@@ -25,19 +25,21 @@ export const ArtPostTemplate = ({ date, title, description, image, dimensions, h
 };
 
 export default ({ data, transition, location }) => {
-  const { title: siteTitle, hompage: siteUrl } = data.site.siteMetadata;
+  const { title: siteTitle, homepage: siteUrl } = data.site.siteMetadata;
   const { markdownRemark: { frontmatter: { date, title, description, image, dimensions } } } = data;
   return (
     <ArtPostTemplate
       {...{ date, title, description, image, dimensions }}
       helmet={
-        <Helmet>
-          <title>{`${siteTitle} | ${title}`}</title>
-          <link rel="canonical" href={siteUrl + location.pathname} />
-          <meta property="og:title" content={title} />
-          <meta property="og:description" content={description} />
-          <meta property="og:image" content={image} />
-        </Helmet>
+        <Helmet
+          title={`${siteTitle} • ${title}`}
+          link={[{ rel: "canonical", href: siteUrl + location.pathname }]}
+          meta={[
+            { property: "og:title", content: `${siteTitle} • ${title}` },
+            { property: "og:description", content: description },
+            { property: "og:image", content: siteUrl + image }
+          ]}
+        />
       }
     />
   );

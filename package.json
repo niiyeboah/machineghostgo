@@ -1,6 +1,6 @@
 {
   "name": "machineghostgo",
-  "homepage": "http://xn--x7hy400o.gq/",
+  "homepage": "http://machineghost.gq",
   "description": "Art",
   "version": "1.0.0",
   "author": "Nii Yeboah <contact@niiyeboah.com>",
@@ -24,13 +24,7 @@
     "react-helmet": "^5.2.0",
     "react-transition-group": "^2.3.0"
   },
-  "keywords": [
-    "netlifycms",
-    "gatsby",
-    "react",
-    "bulma",
-    "sass"
-  ],
+  "keywords": ["netlifycms", "gatsby", "react", "bulma", "sass"],
   "license": "MIT",
   "scripts": {
     "start": "npm run develop",

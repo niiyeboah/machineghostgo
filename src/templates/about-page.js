@@ -33,7 +33,6 @@ const AboutPage = ({ data, transition }) => {
       contentComponent={HTMLContent}
       title={post.frontmatter.title}
       content={post.html}
-      style={transition && transition.style}
     />
   );
 };
