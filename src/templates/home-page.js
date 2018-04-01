@@ -5,7 +5,7 @@ import PropTypes from "prop-types";
 
 export const HomePageTemplate = ({ artwork, closeMenu }) => {
   return (
-    <section className="section">
+    <section className="section home-page">
       <div className="container is-fluid">
         <div className="columns is-multiline">
           {!artwork

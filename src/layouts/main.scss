@@ -135,6 +135,12 @@ nav {
   }
 }
 
+.article {
+  .columns:not(:last-child) {
+    padding: 0.75rem;
+  }
+}
+
 .column.art-gallery {
   padding: 1em 2em;
 
@@ -161,7 +167,6 @@ nav {
 .art-post {
   .info {
     padding: 0 $gap;
-    //text-align: right;
 
     .title {
       font-size: 1em;
@@ -198,7 +203,11 @@ nav {
 }
 
 .columns:not(:last-child).last {
-  margin-bottom: 0;
+  margin: 0;
+
+  > .column {
+    padding: 0.75rem 0 0 0;
+  }
 }
 
 @include mobile {
