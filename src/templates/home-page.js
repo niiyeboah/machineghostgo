@@ -43,8 +43,7 @@ HomePageTemplate.propTypes = {
   artwork: PropTypes.array
 };
 
-const HomePage = ({ data, closeMenu, transition }) => {
-  console.log(transition);
+const HomePage = ({ data, closeMenu }) => {
   return <HomePageTemplate artwork={data.artwork.edges} closeMenu={closeMenu} />;
 };
 

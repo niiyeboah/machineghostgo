@@ -6,7 +6,7 @@
   "author": "Nii Yeboah <contact@niiyeboah.com>",
   "dependencies": {
     "bulma": "^0.6.2",
-    "gatsby": "^1.9.213",
+    "gatsby": "^1.9.246",
     "gatsby-image": "^1.0.42",
     "gatsby-link": "^1.6.37",
     "gatsby-module-loader": "^1.0.11",

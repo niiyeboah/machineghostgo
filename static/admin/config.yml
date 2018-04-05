@@ -19,7 +19,7 @@ collections:
       - {label: "Image", name: "image", widget: "image"}
       - label: "Dimensions"
         name: "dimensions"
-        widget: list
+        widget: "object"
         fields:
           - {label: Width, name: width, widget: number}
           - {label: Height, name: height, widget: number}

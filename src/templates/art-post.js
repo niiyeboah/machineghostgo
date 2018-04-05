@@ -24,7 +24,7 @@ export const ArtPostTemplate = ({ date, title, description, image, dimensions, h
   );
 };
 
-export default ({ data, transition, location }) => {
+export default ({ data, location }) => {
   const { title: siteTitle, homepage: siteUrl } = data.site.siteMetadata;
   const { markdownRemark: { frontmatter: { date, title, description, image, dimensions } } } = data;
   return (

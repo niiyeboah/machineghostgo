@@ -26,7 +26,7 @@ AboutPageTemplate.propTypes = {
   contentComponent: PropTypes.func
 };
 
-const AboutPage = ({ data, transition }) => {
+const AboutPage = ({ data }) => {
   const { markdownRemark: post } = data;
   return (
     <AboutPageTemplate
