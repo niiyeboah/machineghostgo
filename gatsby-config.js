@@ -1,5 +1,5 @@
 const { homepage, description } = require("./package.json");
-const config = require("./private/config");
+const config = process.env.GA || require("./private/config");
 
 module.exports = {
   siteMetadata: {
