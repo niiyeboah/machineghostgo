@@ -30,7 +30,6 @@ $mgg-grey: black;
   .img {
     background-image: url(/img/scared-geometry.jpg);
     background-size: cover;
-    box-shadow: inset -15px 0 25px -10px black;
     filter: brightness(42%) grayscale(100%) blur(2px);
   }
 
@@ -47,6 +46,7 @@ $mgg-grey: black;
   }
 
   .overlay {
+    box-shadow: 0 0 40px 0px black;
     border-right: 2px solid black;
     position: fixed;
     width: 33.3333%;
@@ -146,7 +146,8 @@ $mgg-grey: black;
     }
 
     .overlay {
-      border-left: none;
+      box-shadow: none;
+      border-right: none;
       width: 100%;
       @include menu-animation(hidden, 100%);
 

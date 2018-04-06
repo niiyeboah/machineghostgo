@@ -39,7 +39,7 @@ collections:
   - name: "layout"
     label: "Layout"
     files:
-      - file: "src/pages/layout.md"
+      - file: "src/layouts/index.md"
         label: "General"
         name: "general"
         fields:

@@ -1,8 +1,10 @@
 const { homepage, description } = require("./package.json");
+const config = require("./private/config");
 
 module.exports = {
   siteMetadata: {
     title: "Machine Ghost Go",
+    siteUrl: homepage,
     homepage,
     description
   },
@@ -33,6 +35,14 @@ module.exports = {
     "gatsby-plugin-sharp",
     "gatsby-transformer-sharp",
     "gatsby-transformer-remark",
+    {
+      resolve: `gatsby-plugin-google-analytics`,
+      options: {
+        trackingId: config.googleAnalyticsID
+      }
+    },
+    `gatsby-plugin-offline`,
+    `gatsby-plugin-sitemap`,
     {
       resolve: "gatsby-plugin-netlify-cms",
       options: {

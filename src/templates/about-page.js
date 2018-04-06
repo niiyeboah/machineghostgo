@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import Content, { HTMLContent } from "../components/Content";
 
-export const AboutPageTemplate = ({ title, content, contentComponent }) => {
+export const AboutPageTemplate = ({ title, content, contentComponent, transition }) => {
   const PageContent = contentComponent || Content;
   return (
-    <section className="section section--gradient">
+    <section className="section section--gradient" style={transition && transition.style}>
       <div className="container">
         <div className="columns">
           <div className="column is-10 is-offset-1">
@@ -26,12 +26,13 @@ AboutPageTemplate.propTypes = {
   contentComponent: PropTypes.func
 };
 
-const AboutPage = ({ data }) => {
+const AboutPage = ({ data, transition }) => {
   const { markdownRemark: post } = data;
   return (
     <AboutPageTemplate
       contentComponent={HTMLContent}
       title={post.frontmatter.title}
+      transition={transition}
       content={post.html}
     />
   );

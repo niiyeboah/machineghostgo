@@ -3,9 +3,9 @@ import Link from "gatsby-link";
 // import Img from "gatsby-image";
 import PropTypes from "prop-types";
 
-export const HomePageTemplate = ({ artwork, closeMenu }) => {
+export const HomePageTemplate = ({ artwork, closeMenu, transition }) => {
   return (
-    <section className="section home-page">
+    <section className="section home-page" style={transition && transition.style}>
       <div className="container is-fluid">
         <div className="columns is-multiline">
           {!artwork
@@ -43,8 +43,10 @@ HomePageTemplate.propTypes = {
   artwork: PropTypes.array
 };
 
-const HomePage = ({ data, closeMenu }) => {
-  return <HomePageTemplate artwork={data.artwork.edges} closeMenu={closeMenu} />;
+const HomePage = ({ data, closeMenu, transition }) => {
+  return (
+    <HomePageTemplate artwork={data.artwork.edges} closeMenu={closeMenu} transition={transition} />
+  );
 };
 
 HomePage.propTypes = {
