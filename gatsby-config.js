@@ -1,5 +1,5 @@
 const { homepage, description } = require("./package.json");
-const config = process.env.GA || require("./private/config");
+const gaID = process.env.GA || require("./private/config").googleAnalyticsID;
 
 module.exports = {
   siteMetadata: {
@@ -38,7 +38,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-google-analytics`,
       options: {
-        trackingId: config.googleAnalyticsID
+        trackingId: gaID
       }
     },
     `gatsby-plugin-offline`,
