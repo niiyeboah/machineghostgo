@@ -28,9 +28,9 @@ exports.createLayouts = ({ boundActionCreators, graphql }) => {
       component: path.resolve(`src/templates/custom-layout.js`),
       id: "custom",
       context: {
-        profilePic,
-        backgroundPic,
-        menuBackgroundPic
+        profilePic: `/${profilePic}/`,
+        backgroundPic: `/${backgroundPic}/`,
+        menuBackgroundPic: `/${menuBackgroundPic}/`
       }
     });
   });
@@ -49,6 +49,7 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
             }
             frontmatter {
               templateKey
+              image
             }
           }
         }
@@ -58,11 +59,11 @@ exports.createPages = ({ boundActionCreators, graphql }) => {
     const errors = logErrors(result.errors);
     if (errors) return errors;
     result.data.pages.edges.forEach(edge => {
-      const { id, fields: { slug }, frontmatter: { templateKey } } = edge.node;
+      const { id, fields: { slug }, frontmatter: { templateKey, image } } = edge.node;
       createPage({
         path: slug,
         component: path.resolve(`src/templates/${String(templateKey)}.js`),
-        context: { id },
+        context: { id, image: `/${image}/` },
         layout: "custom"
       });
     });
@@ -84,4 +85,13 @@ exports.onCreatePage = async ({ page, boundActionCreators }) => {
     createPage(page);
     resolve();
   });
+};
+
+exports.modifyWebpackConfig = ({ config, stage }) => {
+  if (stage === "build-html") {
+    config.loader("null", {
+      test: /webfontloader.js/,
+      loader: "null-loader"
+    });
+  }
 };

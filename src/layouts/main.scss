@@ -59,6 +59,7 @@ nav {
         font-weight: normal;
       }
     }
+
     a:hover {
       color: $mgg-grey;
     }
@@ -114,25 +115,39 @@ nav {
 
 .img {
   background-image: url(/img/ink-well.jpg);
+  background-size: cover;
   filter: invert(100%);
 }
 
 .profile {
   width: 40%;
+  border-radius: 1rem;
+  box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.8);
+
+  .gatsby-image-wrapper {
+    img {
+      box-shadow: none;
+    }
+  }
+}
+
+.image {
+  -webkit-tap-highlight-color: transparent;
+  @include unselectable;
 }
 
 .art {
+  border-radius: 0.25em;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
+  transition: box-shadow 0.3s ease-in;
+
   img {
     border-radius: 0.25em;
-    box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.6);
-    -webkit-tap-highlight-color: transparent;
-    transition: box-shadow 0.3s ease-in;
-    @include unselectable;
   }
+}
 
-  img:hover {
-    box-shadow: 0 0 50px -10px black;
-  }
+.art:hover {
+  box-shadow: 0 0 50px -10px black;
 }
 
 .article {
@@ -180,10 +195,18 @@ nav {
     filter: drop-shadow(1px 1px 5px white);
   }
 
-  figure {
+  .image {
+    border-radius: 0.25em;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+
     img {
       border-radius: 0.25em;
-      box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+    }
+
+    .gatsby-image-wrapper {
+      img {
+        box-shadow: none;
+      }
     }
   }
 }
@@ -257,8 +280,49 @@ nav {
     }
   }
 
+  .art-post-header.wrapper {
+    .art-post-header {
+      display: none;
+    }
+
+    .art-post-header.title {
+      display: block;
+      margin: 0 $gap / 2;
+      filter: drop-shadow(1px 1px 5px white);
+    }
+
+    .lazy-load,
+    .gradient {
+      opacity: 0;
+    }
+  }
+
   .gradient {
     @include gradient(white, 70%);
+  }
+
+  .column.template {
+    main {
+      min-height: calc(100vh - 125px);
+
+      section.section {
+        padding-top: $gap / 2;
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  header {
+    .title {
+      font-size: 1.5rem;
+    }
+  }
+
+  .column.template {
+    main {
+      min-height: calc(100vh - 115px);
+    }
   }
 }
 

@@ -2,7 +2,8 @@ import React from "react";
 import Link from "gatsby-link";
 import { HamburgerButton } from "react-hamburger-button";
 
-import "./menu.scss";
+import BackgroundImage from "../BackgroundImage";
+import "./styles.scss";
 
 export default class Menu extends React.Component {
   getClass(open) {
@@ -11,7 +12,6 @@ export default class Menu extends React.Component {
 
   render() {
     const { menuBackgroundPic, socialLinks, menuVisible, toggleMenu } = this.props;
-    const bg = menuBackgroundPic ? { backgroundImage: menuBackgroundPic } : null;
     const navLinks = [
       {
         name: "Home",
@@ -37,7 +37,7 @@ export default class Menu extends React.Component {
           />
         </div>
         <div className={`overlay ${this.getClass(menuVisible)}`}>
-          <div className="bg img" style={bg} />
+          <BackgroundImage src={menuBackgroundPic} />
           <nav>
             <ul>
               {!navLinks

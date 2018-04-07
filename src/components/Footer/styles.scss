@@ -1,6 +1,8 @@
 @import "~bulma/sass/utilities/initial-variables";
 @import "~bulma/sass/utilities/mixins";
 
+$gap-h: $gap / 2;
+
 footer {
   position: fixed;
   bottom: 0;
@@ -30,7 +32,7 @@ footer {
     background: black;
     position: relative;
     bottom: none;
-    padding: ($gap / 2) ($gap * 2);
+    padding: $gap-h $gap-h $gap-h 0;
     width: auto;
     margin-top: -15px;
     color: white;

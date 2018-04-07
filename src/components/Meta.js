@@ -18,7 +18,7 @@ export default ({ title, url, image, description }) => {
       <meta name="msapplication-TileColor" content="#555555" />
       <meta name="theme-color" content="#eeeeee" />
       <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/all.js" />
-      <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" />
+      {/* <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" /> */}
     </Helmet>
   );
 };

@@ -44,6 +44,7 @@ collections:
         name: "general"
         fields:
           - {label: "Template Key", name: "templateKey", widget: "hidden", default: "home-page"}
+          - {label: "Font", name: "font", widget: "string"}
           - {label: "Profile Picture", name: "profilePic", widget: "image"}
           - {label: "Background Picture", name: "backgroundPic", widget: "image"}
           - {label: "Menu Background Picture", name: "menuBackgroundPic", widget: "image"}

@@ -1,20 +1,21 @@
 import React from "react";
 import Link from "gatsby-link";
 
-export default ({ profilePic, socialLinks, backgroundPic }) => {
-  const bg = backgroundPic ? { backgroundImage: `url(${backgroundPic})` } : null;
+import Image from "./Image";
+import BackgroundImage from "./BackgroundImage";
+
+export default ({ profilePic, socialLinks, backgroundPic, artPost }) => {
+  const className = artPost ? "art-post-header" : "";
   return (
-    <div>
-      <div className="bg img" style={bg} />
+    <div className={`wrapper ${className}`}>
+      <BackgroundImage src={backgroundPic} />
       <div className="bg gradient" />
       <header>
-        <div className="container is-fluid is-clearfix">
-          <figure className="image profile">
-            <img src={profilePic} />
-          </figure>
+        <div className={`container is-fluid is-clearfix ${className}`}>
+          <Image src={profilePic} className="profile" />
         </div>
         <div className="container is-fluid">
-          <div className="title link">
+          <div className={`title link ${className}`}>
             <Link to="/">
               <h1>Machine</h1>
               <h1 className="grey">Ghost</h1>
@@ -22,7 +23,7 @@ export default ({ profilePic, socialLinks, backgroundPic }) => {
             </Link>
           </div>
         </div>
-        <div className="container is-fluid">
+        <div className={`container is-fluid ${className}`}>
           <div className="social-links">
             {!socialLinks
               ? null

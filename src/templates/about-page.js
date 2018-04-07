@@ -26,17 +26,24 @@ AboutPageTemplate.propTypes = {
   contentComponent: PropTypes.func
 };
 
-const AboutPage = ({ data, transition }) => {
-  const { markdownRemark: post } = data;
-  return (
-    <AboutPageTemplate
-      contentComponent={HTMLContent}
-      title={post.frontmatter.title}
-      transition={transition}
-      content={post.html}
-    />
-  );
-};
+class AboutPage extends React.Component {
+  componentDidMount() {
+    this.props.setArtPost(false);
+  }
+
+  render() {
+    const { data, transition } = this.props;
+    const { markdownRemark: post } = data;
+    return (
+      <AboutPageTemplate
+        contentComponent={HTMLContent}
+        title={post.frontmatter.title}
+        transition={transition}
+        content={post.html}
+      />
+    );
+  }
+}
 
 AboutPage.propTypes = {
   data: PropTypes.object.isRequired

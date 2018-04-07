@@ -1,9 +1,18 @@
 import React from "react";
 import Link from "gatsby-link";
-// import Img from "gatsby-image";
 import PropTypes from "prop-types";
 
-export const HomePageTemplate = ({ artwork, closeMenu, transition }) => {
+import Image from "../components/Image";
+
+export const HomePageTemplate = ({ artwork, images, closeMenu, transition }) => {
+  const artworkSizes = {};
+  images.map(image => {
+    const regex = /\/img\/.*\.jpg/;
+    const path = regex.exec(image.node.id);
+    const key = path && path[0];
+    artworkSizes[key] = image.node.sizes;
+  });
+  console.log(artwork, artworkSizes);
   return (
     <section className="section home-page" style={transition && transition.style}>
       <div className="container is-fluid">
@@ -19,9 +28,7 @@ export const HomePageTemplate = ({ artwork, closeMenu, transition }) => {
                     onClick={closeMenu}
                   >
                     <Link to={slug}>
-                      <figure className="art image is-square">
-                        <img src={image} />
-                      </figure>
+                      <Image src={artworkSizes[image]} className="art" />
                     </Link>
                     <div className="info">
                       <Link className="has-text-primary" to={slug}>
@@ -43,11 +50,22 @@ HomePageTemplate.propTypes = {
   artwork: PropTypes.array
 };
 
-const HomePage = ({ data, closeMenu, transition }) => {
-  return (
-    <HomePageTemplate artwork={data.artwork.edges} closeMenu={closeMenu} transition={transition} />
-  );
-};
+class HomePage extends React.Component {
+  componentDidMount() {
+    this.props.setArtPost(false);
+  }
+
+  render() {
+    const { data, closeMenu, transition } = this.props;
+    return (
+      <HomePageTemplate
+        {...{ transition, closeMenu }}
+        artwork={data.artwork.edges}
+        images={data.images.edges}
+      />
+    );
+  }
+}
 
 HomePage.propTypes = {
   data: PropTypes.object.isRequired
@@ -72,6 +90,16 @@ export const homePageQuery = graphql`
             templateKey
             date(formatString: "MMMM DD, YYYY")
             image
+          }
+        }
+      }
+    }
+    images: allImageSharp {
+      edges {
+        node {
+          id
+          sizes(maxWidth: 640) {
+            ...GatsbyImageSharpSizes
           }
         }
       }

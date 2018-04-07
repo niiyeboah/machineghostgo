@@ -2,14 +2,16 @@ import React from "react";
 import Helmet from "react-helmet";
 import PropTypes from "prop-types";
 
+import Image from "../components/Image";
+
 export const ArtPostTemplate = ({
   date,
   title,
-  description,
   image,
-  dimensions,
   helmet,
-  transition
+  dimensions,
+  transition,
+  description
 }) => {
   const { width, height, unit } = dimensions;
   return (
@@ -23,9 +25,7 @@ export const ArtPostTemplate = ({
             <br />
             <small>{`${width} × ${height} ${unit}`}</small>
           </div>
-          <figure className="image is-square">
-            <img src={image} />
-          </figure>
+          <Image src={image} />
           <div className="info description">{description}</div>
         </div>
       </section>
@@ -36,33 +36,43 @@ export const ArtPostTemplate = ({
 ArtPostTemplate.propTypes = {
   date: PropTypes.string,
   title: PropTypes.string,
-  description: PropTypes.string,
   image: PropTypes.string,
-  dimensions: PropTypes.object,
   helmet: PropTypes.object,
-  transition: PropTypes.object
+  dimensions: PropTypes.object,
+  transition: PropTypes.object,
+  description: PropTypes.string
 };
 
-const ArtPost = ({ data, transition, location }) => {
-  const { title: siteTitle, homepage: siteUrl } = data.site.siteMetadata;
-  const { markdownRemark: { frontmatter: { date, title, description, image, dimensions } } } = data;
-  return (
-    <ArtPostTemplate
-      {...{ date, title, description, image, dimensions, transition }}
-      helmet={
-        <Helmet
-          title={`${siteTitle} • ${title}`}
-          link={[{ rel: "canonical", href: siteUrl + location.pathname }]}
-          meta={[
-            { property: "og:title", content: `${siteTitle} • ${title}` },
-            { property: "og:description", content: description },
-            { property: "og:image", content: siteUrl + image }
-          ]}
-        />
-      }
-    />
-  );
-};
+class ArtPost extends React.Component {
+  componentDidMount() {
+    this.props.setArtPost(true);
+  }
+
+  render() {
+    const { data, transition, location } = this.props;
+    const { title: siteTitle, homepage: siteUrl } = data.site.siteMetadata;
+    const {
+      image: { sizes: image },
+      markdownRemark: { frontmatter: { date, title, description, dimensions } }
+    } = data;
+    return (
+      <ArtPostTemplate
+        {...{ date, title, description, image, dimensions, transition }}
+        helmet={
+          <Helmet
+            title={`${siteTitle} • ${title}`}
+            link={[{ rel: "canonical", href: siteUrl + location.pathname }]}
+            meta={[
+              { property: "og:title", content: `${siteTitle} • ${title}` },
+              { property: "og:description", content: description },
+              { property: "og:image", content: siteUrl + image }
+            ]}
+          />
+        }
+      />
+    );
+  }
+}
 
 ArtPost.propTypes = {
   data: PropTypes.object,
@@ -73,7 +83,7 @@ ArtPost.propTypes = {
 export default ArtPost;
 
 export const pageQuery = graphql`
-  query ArtPostByID($id: String!) {
+  query ArtPostByID($id: String!, $image: String!) {
     site {
       siteMetadata {
         title
@@ -85,12 +95,16 @@ export const pageQuery = graphql`
         date(formatString: "MMMM DD, YYYY")
         title
         description
-        image
         dimensions {
           width
           height
           unit
         }
+      }
+    }
+    image: imageSharp(id: { regex: $image }) {
+      sizes(maxWidth: 1000) {
+        ...GatsbyImageSharpSizes
       }
     }
   }

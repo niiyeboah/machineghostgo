@@ -1,0 +1,22 @@
+.lazy-load {
+  .ph {
+    filter: invert(100%);
+    transition: opacity 0.5s ease-in-out;
+    background-size: cover;
+  }
+  .ph.loading {
+    opacity: 1;
+  }
+  .ph.success {
+    opacity: 0;
+  }
+  .img {
+    transition: opacity 0.5s ease-in-out;
+  }
+  .img.loading {
+    opacity: 0;
+  }
+  .img.success {
+    opacity: 1;
+  }
+}

@@ -1,7 +1,8 @@
 ---
 layout: true
+font: Lato
 profilePic: /img/profile.jpg
-backgroundPic: /img/ink-well.jpg
+backgroundPic: /img/ink-well-cropped.jpg
 menuBackgroundPic: /img/scared-geometry.jpg
 socialLinks:
   - name: Email 
