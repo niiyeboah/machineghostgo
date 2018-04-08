@@ -245,14 +245,12 @@ nav {
     font-size: 2em;
     transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
     opacity: 1;
-    border-radius: 0.5em;
     -webkit-tap-highlight-color: transparent;
     @include unselectable;
   }
 
   a:hover {
     color: $mgg-grey;
-    background-color: #f6f6f6;
   }
 
   .columns {
