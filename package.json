@@ -24,13 +24,7 @@
     "react-transition-group": "^2.3.0",
     "webfontloader": "^1.6.28"
   },
-  "keywords": [
-    "netlifycms",
-    "gatsby",
-    "react",
-    "bulma",
-    "sass"
-  ],
+  "keywords": ["netlifycms", "gatsby", "react", "bulma", "sass"],
   "license": "MIT",
   "repository": {
     "type": "git",

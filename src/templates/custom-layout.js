@@ -77,11 +77,13 @@ class TemplateWrapper extends React.Component {
   }
 
   componentDidMount() {
+    const html = document.querySelector("html");
     const body = document.querySelector("body");
     let webfont = this.props.data.layout.frontmatter.font;
     info();
     WebFont.load({ google: { families: [webfont] } });
     webfont = webfont ? webfont + "," : "";
+    html.setAttribute("lang", "en");
     body.style.fontFamily = `
       ${webfont} BlinkMacSystemFont, -apple-system, 
       "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", 

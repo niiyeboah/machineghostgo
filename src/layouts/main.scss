@@ -45,7 +45,7 @@ nav {
     color: black;
     text-transform: uppercase;
     text-align: right;
-    filter: blur(1px);
+    filter: blur(1px) drop-shadow(1px 1px 5px white);
 
     a {
       transition: color 0.2s ease-in;
@@ -221,6 +221,10 @@ nav {
     .gradient {
       background-image: radial-gradient(farthest-corner at 0 0, transparent 70%, black 120%);
       bottom: 0;
+    }
+
+    small {
+      font-size: 0.9rem;
     }
   }
 }

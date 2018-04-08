@@ -16,7 +16,7 @@ export const ArtPostTemplate = ({
   const { width, height, unit } = dimensions;
   return (
     <article>
-      {helmet || null}
+      {helmet || ""}
       <section className="section" style={transition && transition.style}>
         <div className="art-post container is-fluid content">
           <div className="info">
@@ -65,7 +65,7 @@ class ArtPost extends React.Component {
             meta={[
               { property: "og:title", content: `${siteTitle} • ${title}` },
               { property: "og:description", content: description },
-              { property: "og:image", content: siteUrl + image }
+              { property: "og:image", content: siteUrl + image.src }
             ]}
           />
         }
