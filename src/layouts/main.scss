@@ -354,6 +354,10 @@ nav {
       }
     }
   }
+
+  .nav-links.container {
+    margin-bottom: $gap;
+  }
 }
 
 @media only screen and (max-width: 480px) {
