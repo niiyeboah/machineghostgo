@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "gatsby-link";
 import Helmet from "react-helmet";
 import PropTypes from "prop-types";
 import WebFont from "webfontloader";
@@ -14,6 +15,7 @@ export const LayoutTemplate = ({
   url,
   title,
   artPost,
+  navSlugs,
   children,
   toggleMenu,
   profilePic,
@@ -22,24 +24,45 @@ export const LayoutTemplate = ({
   menuVisible,
   backgroundPic,
   menuBackgroundPic
-}) => (
-  <div className="section is-paddingless">
-    <Meta image={`${url}/android-chrome-384x384.png`} {...{ description, title, url }} />
-    <Menu {...{ toggleMenu, socialLinks, menuVisible, menuBackgroundPic }} />
-    <div className="columns last">
-      <div className="column is-one-third bio">
-        <Header {...{ profilePic, socialLinks, backgroundPic, artPost }} />
+}) => {
+  let previous = "hidden";
+  let next = "hidden";
+  if (navSlugs) {
+    if (navSlugs.previous) previous = "";
+    if (navSlugs.next) next = "";
+  }
+  return (
+    <div className="section is-paddingless">
+      <Meta image={`${url}/android-chrome-384x384.png`} {...{ description, title, url }} />
+      <Menu {...{ toggleMenu, socialLinks, menuVisible, menuBackgroundPic }} />
+      <div className="columns last">
+        <div className="column is-one-third bio">
+          <Header {...{ profilePic, socialLinks, backgroundPic, artPost }} />
+        </div>
+        <div className="column template is-offset-one-third">
+          <main>
+            <div className="bg gradient" />
+            <div className="nav-links container is-fluid">
+              <div className={`columns is-mobile ${navSlugs ? "" : "hidden"}`}>
+                <Link to={navSlugs && navSlugs.previous} className={`column ${previous}`}>
+                  <i className="fas fa-angle-left" />
+                </Link>
+                <Link to="/" className="column">
+                  <i className="fas fa-th" />
+                </Link>
+                <Link to={navSlugs && navSlugs.next} className={`column ${next}`}>
+                  <i className="fas fa-angle-right" />
+                </Link>
+              </div>
+            </div>
+            {children}
+          </main>
+        </div>
       </div>
-      <div className="column template is-offset-one-third">
-        <main>
-          <div className="bg gradient" />
-          {children}
-        </main>
-      </div>
+      <Footer />
     </div>
-    <Footer />
-  </div>
-);
+  );
+};
 
 LayoutTemplate.propTypes = {
   url: PropTypes.string,
@@ -61,7 +84,8 @@ class TemplateWrapper extends React.Component {
     this.state = { menuVisible: false };
     this.closeMenu = this.closeMenu.bind(this);
     this.toggleMenu = this.toggleMenu.bind(this);
-    this.setArtPost = this.setArtPost.bind(this);
+    this.isArtPost = this.isArtPost.bind(this);
+    this.setNavSlugs = this.setNavSlugs.bind(this);
   }
 
   closeMenu() {
@@ -72,8 +96,12 @@ class TemplateWrapper extends React.Component {
     this.setState({ menuVisible: !this.state.menuVisible });
   }
 
-  setArtPost(val) {
+  isArtPost(val) {
     this.setState({ artPost: val });
+  }
+
+  setNavSlugs(val) {
+    this.setState({ navSlugs: val });
   }
 
   componentDidMount() {
@@ -93,7 +121,7 @@ class TemplateWrapper extends React.Component {
 
   render() {
     const { children, data } = this.props;
-    const { toggleMenu, state: { menuVisible, artPost } } = this;
+    const { toggleMenu, state: { menuVisible, artPost, navSlugs } } = this;
     const { title, homepage: url, description } = data.site.siteMetadata;
     const { socialLinks } = data.layout.frontmatter;
     const menuBackgroundPic = data.menuBackgroundPic.resolutions;
@@ -105,6 +133,7 @@ class TemplateWrapper extends React.Component {
           url,
           title,
           artPost,
+          navSlugs,
           profilePic,
           toggleMenu,
           description,
@@ -118,7 +147,8 @@ class TemplateWrapper extends React.Component {
           ...this.props,
           layout: false,
           closeMenu: this.closeMenu,
-          setArtPost: this.setArtPost
+          isArtPost: this.isArtPost,
+          setNavSlugs: this.setNavSlugs
         })}
       </LayoutTemplate>
     );

@@ -1,7 +1,7 @@
 {
   "name": "Machine Ghost Go",
   "short_name": "MGG",
-  "start_url": "/",
+  "start_url": "./",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",

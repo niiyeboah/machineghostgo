@@ -4,6 +4,7 @@ font: Lato
 profilePic: /img/profile.jpg
 backgroundPic: /img/ink-well-cropped.jpg
 menuBackgroundPic: /img/scared-geometry.jpg
+siteDescription: Artist Portfolio
 socialLinks:
   - name: Email 
     icon: far fa-envelope

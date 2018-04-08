@@ -48,6 +48,7 @@ collections:
           - {label: "Profile Picture", name: "profilePic", widget: "image"}
           - {label: "Background Picture", name: "backgroundPic", widget: "image"}
           - {label: "Menu Background Picture", name: "menuBackgroundPic", widget: "image"}
+          - {label: "Site Description", name: "siteDescription", widget: "string"}
           - label: "Social Links"
             name: "socialLinks"
             widget: list

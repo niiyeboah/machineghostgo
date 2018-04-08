@@ -1,7 +1,7 @@
 ---
 templateKey: art-post
 title: In the Lines
-date: 2018-03-25T19:01:45.587Z
+date: 2018-04-06T11:28:37.995Z
 description: Machine Ghost Go
 image: /img/in-the-lines.jpg
 dimensions:

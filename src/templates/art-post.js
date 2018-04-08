@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "gatsby-link";
 import Helmet from "react-helmet";
 import PropTypes from "prop-types";
 
@@ -9,15 +10,16 @@ export const ArtPostTemplate = ({
   title,
   image,
   helmet,
+  navSlugs,
   dimensions,
   transition,
   description
 }) => {
   const { width, height, unit } = dimensions;
   return (
-    <article>
+    <article style={transition && transition.style}>
       {helmet || ""}
-      <section className="section" style={transition && transition.style}>
+      <section className="section">
         <div className="art-post container is-fluid content">
           <div className="info">
             <div className="title">{title}</div>
@@ -36,16 +38,26 @@ export const ArtPostTemplate = ({
 ArtPostTemplate.propTypes = {
   date: PropTypes.string,
   title: PropTypes.string,
-  image: PropTypes.string,
   helmet: PropTypes.object,
   dimensions: PropTypes.object,
   transition: PropTypes.object,
-  description: PropTypes.string
+  description: PropTypes.string,
+  image: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
 };
 
 class ArtPost extends React.Component {
   componentDidMount() {
-    this.props.setArtPost(true);
+    let navSlugs = {};
+    const slug = this.props.data.art.fields.slug;
+    const slugs = this.props.data.slugs.edges;
+    slugs.map(s => {
+      navSlugs[s.node.fields.slug] = {
+        next: s.next && s.next.fields.slug,
+        previous: s.previous && s.previous.fields.slug
+      };
+    });
+    this.props.isArtPost(true);
+    this.props.setNavSlugs(navSlugs[slug]);
   }
 
   render() {
@@ -53,7 +65,7 @@ class ArtPost extends React.Component {
     const { title: siteTitle, homepage: siteUrl } = data.site.siteMetadata;
     const {
       image: { sizes: image },
-      markdownRemark: { frontmatter: { date, title, description, dimensions } }
+      art: { frontmatter: { date, title, description, dimensions } }
     } = data;
     return (
       <ArtPostTemplate
@@ -90,7 +102,10 @@ export const pageQuery = graphql`
         homepage
       }
     }
-    markdownRemark(id: { eq: $id }) {
+    art: markdownRemark(id: { eq: $id }) {
+      fields {
+        slug
+      }
       frontmatter {
         date(formatString: "MMMM DD, YYYY")
         title
@@ -105,6 +120,28 @@ export const pageQuery = graphql`
     image: imageSharp(id: { regex: $image }) {
       sizes(maxWidth: 1000) {
         ...GatsbyImageSharpSizes
+      }
+    }
+    slugs: allMarkdownRemark(
+      sort: { order: DESC, fields: [frontmatter___date] }
+      filter: { frontmatter: { templateKey: { eq: "art-post" } } }
+    ) {
+      edges {
+        node {
+          fields {
+            slug
+          }
+        }
+        next {
+          fields {
+            slug
+          }
+        }
+        previous {
+          fields {
+            slug
+          }
+        }
       }
     }
   }

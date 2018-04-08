@@ -12,7 +12,6 @@ export const HomePageTemplate = ({ artwork, images, closeMenu, transition }) => 
     const key = path && path[0];
     artworkSizes[key] = image.node.sizes;
   });
-  console.log(artwork, artworkSizes);
   return (
     <section className="section home-page" style={transition && transition.style}>
       <div className="container is-fluid">
@@ -52,7 +51,8 @@ HomePageTemplate.propTypes = {
 
 class HomePage extends React.Component {
   componentDidMount() {
-    this.props.setArtPost(false);
+    this.props.isArtPost(false);
+    this.props.setNavSlugs(false);
   }
 
   render() {

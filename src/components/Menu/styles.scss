@@ -93,6 +93,8 @@ $mgg-grey: black;
               text-shadow: none;
               color: white;
               font-size: 2em;
+              -webkit-tap-highlight-color: transparent;
+              @include unselectable;
             }
 
             a:hover {

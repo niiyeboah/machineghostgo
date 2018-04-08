@@ -7,9 +7,9 @@ import Content, { HTMLContent } from "../components/Content";
 export const AboutPageTemplate = ({ title, content, contentComponent, transition, helmet }) => {
   const PageContent = contentComponent || Content;
   return (
-    <section className="section section--gradient" style={transition && transition.style}>
+    <section className="about section section--gradient" style={transition && transition.style}>
       {helmet || ""}
-      <div className="container">
+      <div className="container is-fluid">
         <div className="columns">
           <div className="column is-10 is-offset-1">
             <div className="section">
@@ -31,13 +31,13 @@ AboutPageTemplate.propTypes = {
 
 class AboutPage extends React.Component {
   componentDidMount() {
-    this.props.setArtPost(false);
+    this.props.isArtPost(false);
+    this.props.setNavSlugs(false);
   }
 
   render() {
     const { data, transition, location } = this.props;
     const { markdownRemark: post } = data;
-    console.log(data);
     const { title: siteTitle, homepage: siteUrl } = data.site.siteMetadata;
     return (
       <AboutPageTemplate

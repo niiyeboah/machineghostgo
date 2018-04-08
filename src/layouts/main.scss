@@ -237,6 +237,48 @@ nav {
   }
 }
 
+.nav-links {
+  text-align: center;
+
+  a {
+    color: black;
+    font-size: 2em;
+    transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 1;
+    border-radius: 0.5em;
+    -webkit-tap-highlight-color: transparent;
+    @include unselectable;
+  }
+
+  a:hover {
+    color: $mgg-grey;
+    background-color: #f6f6f6;
+  }
+
+  .columns {
+    transition: display 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    opacity: 1;
+    margin: $gap / 2 0;
+  }
+
+  a.hidden {
+    visibility: hidden;
+    opacity: 0;
+  }
+
+  .columns.hidden {
+    display: none;
+  }
+}
+
+.about {
+  filter: drop-shadow(1px 1px 5px white);
+
+  .section {
+    padding-top: 0;
+  }
+}
+
 @include mobile {
   .bio {
     position: relative;
