@@ -1,14 +1,15 @@
 import React from "react";
 import Link from "gatsby-link";
+import info from "../utils/info";
 import Helmet from "react-helmet";
 import PropTypes from "prop-types";
-import WebFont from "webfontloader";
+import webfont from "../utils/webfont";
 
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Meta from "../components/Meta";
 import Menu from "../components/Menu";
-import info from "../utils/info";
+
 import "../layouts/main.scss";
 
 export const LayoutTemplate = ({
@@ -105,25 +106,16 @@ class TemplateWrapper extends React.Component {
   }
 
   componentDidMount() {
-    const html = document.querySelector("html");
-    const body = document.querySelector("body");
-    let webfont = this.props.data.layout.frontmatter.font;
+    document.querySelector("html").setAttribute("lang", "en");
+    webfont(this.props.data.layout.frontmatter.font);
     info();
-    WebFont.load({ google: { families: [webfont] } });
-    webfont = webfont ? webfont + "," : "";
-    html.setAttribute("lang", "en");
-    body.style.fontFamily = `
-      ${webfont} BlinkMacSystemFont, -apple-system, 
-      "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", 
-      "Droid Sans", "Helvetica Neue", "Helvetica", "Arial", sans-serif
-    `;
   }
 
   render() {
     const { children, data } = this.props;
+    const { socialLinks } = data.layout.frontmatter;
     const { toggleMenu, state: { menuVisible, artPost, navSlugs } } = this;
     const { title, homepage: url, description } = data.site.siteMetadata;
-    const { socialLinks } = data.layout.frontmatter;
     const menuBackgroundPic = data.menuBackgroundPic.resolutions;
     const backgroundPic = data.backgroundPic.resolutions;
     const profilePic = data.profilePic.sizes;
