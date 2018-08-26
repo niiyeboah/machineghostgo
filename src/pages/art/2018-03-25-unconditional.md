@@ -30,8 +30,7 @@ description: >+
 
 image: /img/unconditional.jpg
 dimensions:
-  height: '12'
+  height: 12
   unit: inches
-  width: '12'
+  width: 12
 ---
-
