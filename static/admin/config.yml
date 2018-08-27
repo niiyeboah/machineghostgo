@@ -26,8 +26,8 @@ collections:
         name: 'dimensions'
         widget: 'object'
         fields:
-          - {label: Width, name: width, widget: string}
-          - {label: Height, name: height, widget: string}
+          - {label: Width, name: width, widget: number}
+          - {label: Height, name: height, widget: number}
           - {label: Unit, name: unit, widget: select, options: ['inches', 'cm']}
 
   - name: 'pages'
