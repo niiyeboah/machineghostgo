@@ -7,5 +7,6 @@ image: /img/black-and-white.jpg
 dimensions:
   height: '20'
   unit: inches
-  width: '30'
+  width: '20'
 ---
+
